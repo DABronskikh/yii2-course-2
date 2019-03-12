@@ -20,12 +20,12 @@ return [
         'user' => [
             'identityClass' => 'common\models\Users',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['domain']],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced',
-            'cookieParams' =>[
+            'cookieParams' => [
                 'httpOnly' => true,
             ],
         ],

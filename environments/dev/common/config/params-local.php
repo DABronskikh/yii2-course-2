@@ -1,2 +1,5 @@
 <?php
-return [];
+return [
+    'cookieValidationKey' => '',
+    'domain' => '.yii2.local',
+];
