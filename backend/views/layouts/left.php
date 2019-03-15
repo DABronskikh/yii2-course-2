@@ -18,7 +18,7 @@
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
+                <span class="input-group-btn">
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
@@ -28,7 +28,7 @@
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
@@ -59,6 +59,22 @@
                                 ],
                             ],
                         ],
+                    ],
+                    [
+                        'label' => 'RBAC',
+                        'icon' => 'share',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'admin', 'icon' => 'file-code-o', 'url' => ['/admin']],
+                            ['label' => 'route', 'icon' => 'file-code-o', 'url' => ['/admin/route']],
+                            ['label' => 'permission', 'icon' => 'file-code-o', 'url' => ['/admin/permission']],
+                            ['label' => 'menu', 'icon' => 'file-code-o', 'url' => ['/admin/menu']],
+                            ['label' => 'role', 'icon' => 'file-code-o', 'url' => ['/admin/role']],
+                            ['label' => 'assignment', 'icon' => 'file-code-o', 'url' => ['/admin/assignment']],
+                            ['label' => 'user', 'icon' => 'file-code-o', 'url' => ['/admin/user']],
+
+                        ],
+
                     ],
                     ['label' => 'задачи', 'icon' => 'file-code-o', 'url' => ['/tasks']],
                     ['label' => 'статусы задач', 'icon' => 'file-code-o', 'url' => ['/task-statuses']],
