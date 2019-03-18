@@ -12,8 +12,18 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+        ],
+    ],
     'components' => [
+        'bootstrap'=>[
+            'class' => \common\components\Bootstrap::class,
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'cookieValidationKey' => $params['cookieValidationKey'],
@@ -21,7 +31,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\Users',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['domain']],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
