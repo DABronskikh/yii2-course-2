@@ -121,4 +121,9 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TaskStatuses::className(), ['id' => 'status_id']);
     }
+
+    //api
+    public function extraFields(){
+        return ['creator', 'responsible', 'status', 'comments'];
+    }
 }
