@@ -19,12 +19,14 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deadline
+ * @property int $project_id
  *
  * @property Comment[] $comments
  * @property FileImage[] $fileImages
  * @property Users $creator
  * @property Users $responsible
  * @property TaskStatuses $status
+ * @property Project $projectId
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -42,13 +44,14 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'discription', 'creator_id', 'responsible_id', 'status_id', /*'created_at', 'updated_at',*/ 'deadline'], 'required'],
-            [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-            [['created_at', 'updated_at', 'deadline'], 'safe'],
+            [['name', 'creator_id', 'responsible_id', 'status_id', 'deadline', 'project_id'], 'required'],
+            [['creator_id', 'responsible_id', 'status_id', 'project_id'], 'integer'],
+            [['discription', 'created_at', 'updated_at', 'deadline'], 'safe'],
             [['name', 'discription'], 'string', 'max' => 255],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TaskStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
+            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
         ];
     }
 
@@ -79,6 +82,7 @@ class Tasks extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'deadline' => 'Срок',
+            'project_id' => 'project',
         ];
     }
 
@@ -120,5 +124,19 @@ class Tasks extends \yii\db\ActiveRecord
     public function getStatus()
     {
         return $this->hasOne(TaskStatuses::className(), ['id' => 'status_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProject()
+    {
+        return $this->hasOne(Project::className(), ['id' => 'project_id']);
+    }
+
+    //api
+    public function extraFields()
+    {
+        return ['creator', 'responsible', 'status', 'comments'];
     }
 }

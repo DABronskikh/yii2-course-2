@@ -24,6 +24,7 @@ use yii\widgets\ActiveForm;
 
     <? /*= $form->field($model, 'created_at')->textInput() */ ?>
     <? /*= $form->field($model, 'updated_at')->textInput() */ ?>
+    <?= $form->field($model, 'project_id')->textInput()  ?>
 
     <?= $form->field($model, 'deadline')->textInput(['type' => 'date', 'required'=>'true'])  ?>
     <?/*= $form->field($model, 'deadline')->widget(\yii\jui\DatePicker::class,

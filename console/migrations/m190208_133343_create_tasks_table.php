@@ -22,7 +22,6 @@ class m190208_133343_create_tasks_table extends Migration
             'created_at' => $this->dateTime()->notNull(),
             'updated_at' => $this->dateTime()->notNull(),
             'deadline' => $this->date()->notNull(),
-
         ]);
 
         $this->createTable('{{%task_statuses}}', [

@@ -10,22 +10,37 @@ return [
     'language' => 'ru',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'bootstrap'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'v1' => [
+            'class' => 'frontend\modules\v1\Module',
+        ],
+    ],
     'components' => [
+        'bootstrap' => [
+            'class' => \common\components\Bootstrap::className(),
+        ],
+        'bot' => [
+            'class' => 'SonkoDmitry\Yii\TelegramBot\Component',
+            'apiToken' => '621307845:AAFl_n1Z-2GVn3e6FKbFVZMCO2H0PRzVWfw',
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\Users',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['domain']],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced',
-            'cookieParams' =>[
+            'cookieParams' => [
                 'httpOnly' => true,
             ],
         ],
@@ -45,6 +60,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => ['v1/tasks']
+                ],
             ],
         ],
     ],
